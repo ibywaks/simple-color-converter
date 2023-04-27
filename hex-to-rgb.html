@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Convert Hex Color Code to RGB</title>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css
+">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<style type="text/css">
+		.center {
+		  text-align: center;
+		  margin: auto;
+		}
+
+		.color-box {
+			width: 500px;
+			height: 100px;
+			border: 1px solid #000;
+		}
+		.font-bold {
+		  font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h2 class="pt-5">Convert Hex Color Code to RGB</h2>
+		<div class="row pb-5 pt-5">
+			<div class="col-md-2">
+				<input class="form-control form-inline" type="text" id="color-value" placeholder="Type in your color hex code">
+			</div>
+			<div class="col-md-4">
+				<button id="convert-color" class="btn btn-md btn-primary">Convert</button>
+			</div>
+		</div>
+		<div class="row">
+            <div id="hex-rect" class="col-md-6 center">
+				<div class="center color-box">
+					
+				</div>
+				<p class="font-bold pt-2"></p>
+			</div>
+			<div id="rgb-rect" class="col-md-6 center">
+				<div class="center color-box">
+					
+				</div>
+				<p class="font-bold pt-2"></p>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#convert-color').click(() => {
+				var colorValue = $('#color-value').val().trim()
+
+				if (!colorValue) {
+					alert("You need to enter the color").
+					$('#color_value').val('')
+					return
+				}
+
+				const colorList = hexToRgb(colorValue)
+
+				$('#rgb-rect').find('p').text(`RGB(${colorList.join(',')})`)
+				$('#hex-rect').find('p').text(colorValue)
+
+				$('#rgb-rect').find('.color-box').css('background-color', `RGB(${colorList.join(',')})`)
+				$('#hex-rect').find('.color-box').css('background-color', colorValue)
+			})
+
+		});
+
+		
+        function hexToRgb (hex) {
+            hex = hex.replace(/^#?([0-9a-f]{6})$/i, '$1');
+            hex = Number(`0x${hex}`);
+
+            return [
+                hex >> 16 & 0xff, // red
+                hex >> 8 & 0xff,  // green
+                hex & 0xff        // blue
+            ];
+        }
+	</script>
+</body>
+</html>
